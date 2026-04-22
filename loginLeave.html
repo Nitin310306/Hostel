@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="theme.css">
+    <title>Login - H7 Portal</title>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-title-box">
+            <h1>H7 Portal</h1>
+            <h3>Student Authentication</h3>
+        </div>
+        <img src="image.png" alt="NIT logo" height="60" width="60" style="border-radius: 50%; border: 2px solid var(--secondary);">
+    </header>
+
+    <main class="center-box glass-panel" style="margin: 5rem auto;">
+        <h2 class="text-center">Welcome Back</h2>
+        <p class="text-center" style="margin-bottom: 2rem; color: var(--text-dark);">Please sign in to continue</p>
+        
+        <form action="LeaveForm.html">
+            <div>
+                <label for="email">Username</label>
+                <input type="text" id="email" name="email" placeholder="Enter your username" required>
+            </div>
+            
+            <div>
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="8-20 characters" name="password" minlength="8" maxlength="20" required>
+            </div>
+            
+            <fieldset style="margin-top: 1rem; border-color: rgba(255,255,255,0.05); background: rgba(0,0,0,0.2);">
+                <legend style="font-size: 0.9rem;">Security Check</legend>
+                <p id="captcha-question" class="captcha-box" style="text-align: center; color: var(--secondary);"></p>
+                <input type="number" id="captcha-answer" placeholder="Enter answer here" required>
+                <p class="error-msg text-center" id="error-msg"></p>
+            </fieldset>
+            
+            <input type="submit" value="Authenticate" class="mt-1">
+            
+            <div class="links-group">
+                <a href="signup.html">Create Account</a>
+            </div>
+        </form>
+    </main>
+
+    <script>
+        let num1, num2, correctAnswer;
+        function generateCaptcha() {
+            num1 = Math.floor(Math.random() * 10) + 1;
+            num2 = Math.floor(Math.random() * 10) + 1;
+            correctAnswer = num1 + num2;
+            document.getElementById('captcha-question').textContent = `What is ${num1} + ${num2}?`;
+        }
+        function validateCaptcha(event) {
+            const userAnswer = parseInt(document.getElementById('captcha-answer').value);
+            if (userAnswer !== correctAnswer) {
+                event.preventDefault(); // Stop form submission
+                document.getElementById('error-msg').textContent = 'Incorrect answer. Please try again.';
+                generateCaptcha();
+                document.getElementById('captcha-answer').value = '';
+                return false;
+            }
+            alert("Login successful!");
+            return true;
+        }
+        document.querySelector('form').addEventListener('submit', validateCaptcha);
+        generateCaptcha();
+    </script>
+</body>
+</html>

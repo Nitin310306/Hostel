@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="theme.css">
+    <title>Leave Application Form - H7 Portal</title>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-title-box">
+            <h1>H7 Portal</h1>
+            <h3>Leave Application</h3>
+        </div>
+        <img src="image.png" alt="NIT logo" height="60" width="60" style="border-radius: 50%; border: 2px solid var(--secondary);">
+    </header>
+
+    <main class="glass-panel" style="margin-top: 3rem; margin-bottom: 3rem;">
+        <h2 class="text-center">Hostel Leave Form</h2>
+        <p class="text-center" style="color: var(--text-dark); margin-bottom: 2rem;">Please fill out all required details accurately.</p>
+        
+        <form autocomplete="off" onsubmit="return handleLeaveSubmit(event)">
+            <fieldset>
+                <legend>Personal Information</legend>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div>
+                        <label for="name">Full Name</label>
+                        <input type="text" name="name" id="name" placeholder="Enter your name" required>
+                    </div>
+                    <div>
+                        <label for="id">Roll Number</label>
+                        <input type="text" name="id" id="id" placeholder="Enter your roll no." required>
+                    </div>
+                    <div style="grid-column: 1 / -1;">
+                        <label for="email">Student Email</label>
+                        <input type="email" name="email" id="email" placeholder="Enter your email" required>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Leave Details</legend>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div>
+                        <label for="start date">Start Date (after 4th Feb 2026)</label>
+                        <input type="date" name="start date" id="start date" min="2026-02-04" max="2026-05-31" required>
+                    </div>
+                    <div>
+                        <label for="end date">End Date (before 31st May 2026)</label>
+                        <input type="date" name="end date" id="end date" min="2026-02-04" max="2026-05-31" required>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Reason & Destination</legend>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div>
+                        <label>Type of Leave</label>
+                        <div class="radio-group" style="margin-top: 0.5rem;">
+                            <label><input type="radio" name="leaveType" value="Medical Leave" onclick="toggleOther(false)"> Medical Leave</label>
+                            <label><input type="radio" name="leaveType" value="Personal Leave" onclick="toggleOther(false)"> Personal Leave</label>
+                            <label><input type="radio" name="leaveType" value="Urgent Leave" onclick="toggleOther(false)"> Urgent Leave</label>
+                            <label><input type="radio" name="leaveType" value="Going for a Trip" onclick="toggleOther(false)"> Going for a Trip</label>
+                            <label><input type="radio" name="leaveType" value="Other" onclick="toggleOther(true)"> Other</label>
+                            <input type="text" id="otherLeave" placeholder="Please specify..." style="display:none; margin-top: 0.5rem;">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label>Destination Location</label>
+                        <div class="checkbox-group" style="margin-top: 0.5rem;">
+                            <label><input type="checkbox" name="location" value="Chandigarh"> Chandigarh</label>
+                            <label><input type="checkbox" name="location" value="Delhi"> Delhi</label>
+                            <label><input type="checkbox" name="location" value="Home"> Home</label>
+                            <label><input type="checkbox" name="location" value="Shimla"> Shimla</label>
+                            <label><input type="checkbox" name="location" value="Other"> Other</label>
+                            <input type="text" name="otherLocation" placeholder="Please specify..." style="margin-top: 0.5rem;">
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1.5rem;">
+                    <label for="reason">Detailed Reason for Leave</label>
+                    <textarea name="reason" id="reason" placeholder="Write specific details for the warden..."></textarea>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Additional Information</legend>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div>
+                        <label>Have you informed your parents?</label>
+                        <div class="radio-group" style="flex-direction: row; gap: 2rem;">
+                            <label><input type="radio" name="informedParents" value="Yes"> Yes</label>
+                            <label><input type="radio" name="informedParents" value="No"> No</label>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="contact">Contact Number during Leave</label>
+                        <input type="tel" name="contact" id="contact" placeholder="+91 XXXXX XXXXX">
+                    </div>
+                    
+                    <div style="grid-column: 1 / -1;">
+                        <label for="block">Select your Hostel Block</label>
+                        <select id="block" name="block" style="height: 48px;">
+                            <option value="">-- Dropdown to Select Block --</option>
+                            <option value="A">Block A</option>
+                            <option value="B">Block B</option>
+                            <option value="C">Block C</option>
+                            <option value="D">Block D</option>
+                            <option value="E">Block E</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+
+            <input type="submit" value="Submit Gate Pass Application">
+            
+            <div class="text-center mt-1">
+                <a href="index.html">Cancel and Return Home</a>
+            </div>
+        </form>
+    </main>
+
+    <script>
+        function toggleOther(show) {
+            document.getElementById("otherLeave").style.display = show ? "block" : "none";
+            if (show) document.getElementById("otherLeave").focus();
+        }
+
+        function handleLeaveSubmit(e) {
+            e.preventDefault(); // Prevent default submission
+            alert("Leave application submitted successfully!");
+            window.location.href = "index.html";
+            return false;
+        }
+    </script>
+</body>
+</html>
